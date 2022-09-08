@@ -56,7 +56,7 @@ if (-not $script:nodepath) {
 
 $script:nodebin = Join-Path -Path $script:root -ChildPath bin
 $script:modulebin = (npm config get prefix | Out-String).Trim()
-$Env:NODE_PATH = "/usr/share/nodejs" + ";" + (Join-Path -Path $script:nodebin -ChildPath .playwright) + ";" + $script:modulebin
+$Env:NODE_PATH = $script:modulebin + ":" + (Join-Path -Path $script:nodebin -ChildPath .playwright) + ":" + "/usr/share/nodejs"
 Set-Alias -Name playwright -Value Invoke-Playwright
 
 

@@ -6,7 +6,7 @@ function Invoke-Node {
     $arglist = $args -join " "
 
     if ($isLinux -or $isMac) {
-        Invoke-Program -FilePath $script:nodepath -ArgumentList $arglist
+        Invoke-Program -FilePath $script:nodepath -ArgumentList $arglist -WorkingDirectory $script:modulebin
     } else {
         Invoke-Program -FilePath $script:nodepath -ArgumentList $arglist
     }
