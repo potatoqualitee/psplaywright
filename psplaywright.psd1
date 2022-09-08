@@ -9,31 +9,31 @@
 @{
 
     # Script module or binary module file associated with this manifest.
-    RootModule        = 'psplaywright.psm1'
+    RootModule            = 'psplaywright.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '1.0'
+    ModuleVersion         = '1.0'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
 
     # ID used to uniquely identify this module
-    GUID              = 'f036a2e2-4375-429b-9953-e9e0c683f22e'
+    GUID                  = 'f036a2e2-4375-429b-9953-e9e0c683f22e'
 
     # Author of this module
-    Author            = 'Chrissy LeMaire'
+    Author                = 'Chrissy LeMaire'
 
     # Company or vendor of this module
-    CompanyName       = 'cl'
+    CompanyName           = 'cl'
 
     # Copyright statement for this module
-    Copyright         = '(c) 2022 cl. All rights reserved.'
+    Copyright             = '(c) 2022 cl. All rights reserved.'
 
     # Description of the functionality provided by this module
     # Description = ''
 
     # Minimum version of the Windows PowerShell engine required by this module
-    # PowerShellVersion = ''
+    # PowerShellVersion     = '7.2.5'
 
     # Name of the Windows PowerShell host required by this module
     # PowerShellHostName = ''
@@ -48,13 +48,13 @@
     # CLRVersion = ''
 
     # Processor architecture (None, X86, Amd64) required by this module
-    # ProcessorArchitecture = ''
+    ProcessorArchitecture = 'Amd64'
 
     # Modules that must be imported into the global environment prior to importing this module
     # RequiredModules = @()
 
     # Assemblies that must be loaded prior to importing this module
-    # RequiredAssemblies = @()
+    RequiredAssemblies    = @("./bin/Microsoft.Playwright.dll")
 
     # Script files (.ps1) that are run in the caller's environment prior to importing this module.
     # ScriptsToProcess = @()
@@ -69,16 +69,19 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = @('Install-PwPlaywright')
+    FunctionsToExport     = @(
+        'Install-PwPlaywright',
+        'Start-PwPlaywright'
+    )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-    CmdletsToExport   = @()
+    CmdletsToExport       = @()
 
     # Variables to export from this module
-    VariablesToExport = '*'
+    VariablesToExport     = '*'
 
     # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-    AliasesToExport   = @()
+    AliasesToExport       = @()
 
     # DSC resources to export from this module
     # DscResourcesToExport = @()
@@ -90,7 +93,7 @@
     # FileList = @()
 
     # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
-    PrivateData       = @{
+    PrivateData           = @{
 
         PSData = @{
 
