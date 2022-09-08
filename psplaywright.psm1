@@ -54,8 +54,9 @@ if (-not $script:nodepath) {
     throw "Node.js is not installed. Please install Node.js and try again."
 }
 
-$nodebin = Join-Path -Path $script:root -ChildPath bin
-$Env:NODE_PATH = "/usr/share/nodejs" + ";" + (Join-Path -Path $nodebin -ChildPath .playwright)
+$script:nodebin = Join-Path -Path $script:root -ChildPath bin
+$script:modulebin = Get-ChildItem -Path $(npm config get prefix | Out-String).Trim()
+$Env:NODE_PATH = "/usr/share/nodejs" + ";" + (Join-Path -Path $script:nodebin -ChildPath .playwright) + ";" + $script:modulebin
 Set-Alias -Name playwright -Value Invoke-Playwright
 
 
