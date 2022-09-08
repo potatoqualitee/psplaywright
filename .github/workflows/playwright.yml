@@ -14,4 +14,14 @@ jobs:
         run: |
           Import-Module ./psplaywright.psd1
           Install-PwPlaywright
+
+      - name: Install dependencies
+        run: |
+          New-Item -ItemType Directory -Path $HOME\screenshots
           Save-PwScreenShot -Uri https://www.google.com, msnbc.com -Path $HOME
+
+      - name: 🪠 Upload screenshots to artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots
+          path: $HOME\screenshots
