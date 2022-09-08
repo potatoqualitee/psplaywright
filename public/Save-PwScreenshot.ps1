@@ -86,7 +86,13 @@ function Save-PwScreenshot {
         $screenshots = Join-Path -Path $script:root -ChildPath js
         $screenshots = Join-Path -Path $screenshots -ChildPath screenshots.js
 
-        $null = node "$screenshots" $json
+        $results = node "$screenshots" $json
+
+        if ($results.ExitCode -contains 1) {
+            Write-Warning $results.stderr
+            return
+        }
+
 
         foreach ($item in $items) {
             Get-ChildItem -Path (Join-Path -Path $item.directory -ChildPath $item.filename)

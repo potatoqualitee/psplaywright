@@ -1,15 +1,9 @@
 function Invoke-Node {
-    [CmdletBinding()]
-    param()
-
     Write-Verbose "Executing $script:nodepath"
     $arglist = $args -join " "
+    Write-Verbose "arglist $arglist"
 
-    if ($isLinux -or $isMac) {
-        Invoke-Program -FilePath $script:nodepath -ArgumentList $arglist -WorkingDirectory $script:modulebin
-    } else {
-        Invoke-Program -FilePath $script:nodepath -ArgumentList $arglist
-    }
+    Invoke-Program -FilePath $script:nodepath -ArgumentList $arglist -WorkingDirectory $script:modulebin
 }
 
 #https://github.com/microsoft/playwright/blob/main/tests/library/playwright.config.ts
