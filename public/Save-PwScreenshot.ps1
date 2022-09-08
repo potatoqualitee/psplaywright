@@ -94,12 +94,13 @@ $env:NODE_EXTRA_CA_CERTS="C:\certs\root.crt"
     }
     #>
         $json = ($items | ConvertTo-Json -Compress).Replace('"', '\"')
-        $screenshots = Join-Path -Path $script:root -ChildPath screenshots1.js
+        $screenshots = Join-Path -Path $script:root -ChildPath js
+        $screenshots = Join-Path -Path $screenshots -ChildPath screenshots.js
 
-        node "$screenshots" $json
+        $null = node "$screenshots" $json
 
         foreach ($item in $items) {
-            #Get-ChildItem -Path (Join-Path -Path $item.directory -ChildPath $item.filename) | Invoke-Item
+            Get-ChildItem -Path (Join-Path -Path $item.directory -ChildPath $item.filename)
         }
     }
 }

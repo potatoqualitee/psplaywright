@@ -38,7 +38,9 @@ JSON.parse(process.argv[2]).forEach(async function (item) {
     await page.goto(url);
     // wait for the page to load
     await page.waitForLoadState('domcontentloaded');
-    //await page.waitForSelector('text=Table with Paging');
+    if (waitForSelector) {
+        await page.waitForSelector(waitForSelector);
+    }
     // take a screenshot
     await page.screenshot({ path: file });
     await context.close();
