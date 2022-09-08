@@ -87,7 +87,7 @@ function Save-PwScreenshot {
         $screenshots = Join-Path -Path $screenshots -ChildPath screenshots.js
 
         if (-not $IsLinux -and -not $isMacOS) {
-            $results = Invoke-NodeNoWorkingDirectory
+            $results = Invoke-NodeNoWorkingDirectory "$screenshots" $json
         } else {
             $results = node "$screenshots" $json
         }
