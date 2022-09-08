@@ -18,8 +18,8 @@ jobs:
       - name: Save screenshots
         run: |
           Import-Module ./psplaywright.psd1
-          New-Item -ItemType Directory -Path $HOME\screenshots
-          Save-PwScreenShot -Uri https://www.google.com, msnbc.com, https://www.msnbc.com/morning-joe/watch/queen-elizabeth-s-doctors-concerned-for-her-health-147978821891 -Path $HOME\screenshots
+          New-Item -ItemType Directory -Path $(Join-Path -Path $HOME -ChildPath screenshots)
+          Save-PwScreenShot -Uri https://www.google.com, msnbc.com, https://www.msnbc.com/morning-joe/watch/queen-elizabeth-s-doctors-concerned-for-her-health-147978821891 -Path $(Join-Path -Path $HOME -ChildPath screenshots)
 
       - name: 🪠 Upload screenshots to artifact
         uses: actions/upload-artifact@v3
@@ -40,7 +40,7 @@ jobs:
       - name: Save screenshots
         run: |
           Import-Module ./psplaywright.psd1
-          New-Item -ItemType Directory -Path $HOME\screenshots
+          New-Item -ItemType Directory -Path $(Join-Path -Path $HOME -ChildPath screenshots)
           Save-PwScreenShot -Uri https://www.google.com, msnbc.com, https://www.msnbc.com/morning-joe/watch/queen-elizabeth-s-doctors-concerned-for-her-health-147978821891 -Path $(Join-Path -Path $HOME -ChildPath screenshots)
 
       - name: 🪠 Upload screenshots to artifact
