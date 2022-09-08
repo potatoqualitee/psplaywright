@@ -8,6 +8,7 @@ function Install-PwPlaywright {
         $exec = Invoke-Program -FilePath sudo -ArgumentList "$script:npxpath --location=global -y playwright install" -ErrorAction Stop
 
         if ($exec.ExitCode -ne 0) {
+            $exec
             throw "Failed to install Playwright"
         } else {
             Write-Output "Playwright installed successfully"
