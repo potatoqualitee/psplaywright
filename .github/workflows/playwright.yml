@@ -19,7 +19,7 @@ jobs:
         run: |
           Import-Module ./psplaywright.psd1
           New-Item -ItemType Directory -Path $HOME\screenshots
-          Save-PwScreenShot -Uri https://www.google.com, msnbc.com -Path $HOME
+          Save-PwScreenShot -Uri https://www.google.com, msnbc.com -Path $HOME\screenshots
 
       - name: 🪠 Upload screenshots to artifact
         uses: actions/upload-artifact@v3
