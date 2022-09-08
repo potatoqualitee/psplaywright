@@ -25,4 +25,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: screenshots
-          path: $HOME\screenshots
+          path: C:\Users\runneradmin\screenshots
