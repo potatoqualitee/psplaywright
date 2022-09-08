@@ -92,8 +92,6 @@ function Save-PwScreenshot {
             $results = node "$screenshots" $json
         }
 
-
-
         if ($results.ExitCode -contains 1) {
             throw $results.stderr
             return
