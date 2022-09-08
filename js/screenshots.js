@@ -1,6 +1,3 @@
-
-var { chromium } = require('playwright');
-
 JSON.parse(process.argv[2]).forEach(async function (item) {
     var url = item.url;
     var directory = item.directory;
@@ -14,7 +11,7 @@ JSON.parse(process.argv[2]).forEach(async function (item) {
     var clickSelector = item.clickSelector;
     var browserName = item.browserName;
     var colorScheme = item.colorScheme;
-    var { browserName } = require('playwright');
+    var { chromium } = require('playwright');
 
     var path = require('path');
     var fs = require('fs');

@@ -41,8 +41,32 @@ foreach ($function in (Get-ChildItem "$script:root\public" -Filter "*.ps1" -Recu
     . Import-ModuleFile -Path $function.FullName
 }
 
-$script:nodepath = Get-ChildItem -Path $script:root -Filter node.exe -Recurse
+if ($isLinux -or $isMac) {
+    $script:nodepath = (whereis node) -split " " | Select-Object -First 1 -Skip 1
+    $script:npxpath = (whereis npx) -split " " | Select-Object -First 1 -Skip 1
+    $script:npmpath = (whereis npm) -split " " | Select-Object -First 1 -Skip 1
+} else {
+    $script:nodepath = Get-ChildItem -Path $script:root -Filter node.exe -Recurse
+    Set-Alias -Name node -Value Invoke-Node
+}
+
+if (-not $script:nodepath) {
+    throw "Node.js is not installed. Please install Node.js and try again."
+}
+
 $nodebin = Join-Path -Path $script:root -ChildPath bin
-$env:NODE_PATH = Join-Path -Path $nodebin -ChildPath .playwright
-Set-Alias -Name node -Value Invoke-Node
+$Env:NODE_PATH = "/usr/share/nodejs" + ";" + (Join-Path -Path $nodebin -ChildPath .playwright)
 Set-Alias -Name playwright -Value Invoke-Playwright
+
+
+<#
+    # For Playwright Test
+$Env:HTTPS_PROXY="https://192.0.2.1"
+npx playwright install
+
+# For Playwright Library
+$Env:HTTPS_PROXY="https://192.0.2.1"
+npm install playwright
+$Env:NODE_EXTRA_CA_CERTS="C:\certs\root.crt"
+    }
+#>

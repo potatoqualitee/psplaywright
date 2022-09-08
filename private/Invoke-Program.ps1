@@ -10,6 +10,7 @@ function Invoke-Program {
         [Parameter()]
         [ValidateNotNullOrEmpty()]
         [string]$ArgumentList,
+        [string]$WorkingDirectory,
         [Parameter()]
         [ValidateNotNullOrEmpty()]
         [uint32[]]$SuccessReturnCode = @(0, 3010),
@@ -19,7 +20,7 @@ function Invoke-Program {
         try {
 
             $output = [pscustomobject]@{
-                ComputerName     = $env:COMPUTERNAME
+                ComputerName     = $Env:COMPUTERNAME
                 Path             = $FilePath
                 ArgumentList     = $ArgumentList
                 WorkingDirectory = $WorkingDirectory

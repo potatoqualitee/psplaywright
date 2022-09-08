@@ -6,7 +6,7 @@ if ([Environment]::Is64BitProcess) {
 
 Write-Host "Downloading Google Chrome Beta"
 $wc = New-Object net.webclient
-$msiInstaller = "$env:temp\google-chrome-beta.msi"
+$msiInstaller = "$Env:temp\google-chrome-beta.msi"
 $wc.Downloadfile($url, $msiInstaller)
 
 Write-Host "Installing Google Chrome Beta"

@@ -50,9 +50,9 @@ function Save-PwScreenshot {
         [switch]$ChromiumSandbox
     )
     process {
-        # $env:PLAYWRIGHT_BROWSERS_PATH="$env:USERPROFILE\pw-browsers"
+        # $Env:PLAYWRIGHT_BROWSERS_PATH="$Env:USERPROFILE\pw-browsers"
         # Places binaries to node_modules\playwright-core\.local-browsers
-        # $env:PLAYWRIGHT_BROWSERS_PATH = 0
+        # $Env:PLAYWRIGHT_BROWSERS_PATH = 0
         #npm install -D @playwright/test playwright
         #npx playwright install
         $items = @()
@@ -82,17 +82,6 @@ function Save-PwScreenshot {
                 browser         = $Browser
             }
         }
-        <#
-    # For Playwright Test
-$env:HTTPS_PROXY="https://192.0.2.1"
-npx playwright install
-
-# For Playwright Library
-$env:HTTPS_PROXY="https://192.0.2.1"
-npm install playwright
-$env:NODE_EXTRA_CA_CERTS="C:\certs\root.crt"
-    }
-    #>
         $json = ($items | ConvertTo-Json -Compress).Replace('"', '\"')
         $screenshots = Join-Path -Path $script:root -ChildPath js
         $screenshots = Join-Path -Path $screenshots -ChildPath screenshots.js

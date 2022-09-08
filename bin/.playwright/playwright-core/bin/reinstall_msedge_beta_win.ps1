@@ -2,7 +2,7 @@ $url = $args[0]
 
 Write-Host "Downloading Microsoft Edge Beta"
 $wc = New-Object net.webclient
-$msiInstaller = "$env:temp\microsoft-edge-beta.msi"
+$msiInstaller = "$Env:temp\microsoft-edge-beta.msi"
 $wc.Downloadfile($url, $msiInstaller)
 
 Write-Host "Installing Microsoft Edge Beta"

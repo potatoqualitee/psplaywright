@@ -5,7 +5,7 @@ if ([Environment]::Is64BitProcess) {
 }
 
 $wc = New-Object net.webclient
-$msiInstaller = "$env:temp\google-chrome.msi"
+$msiInstaller = "$Env:temp\google-chrome.msi"
 Write-Host "Downloading Google Chrome"
 $wc.Downloadfile($url, $msiInstaller)
 
