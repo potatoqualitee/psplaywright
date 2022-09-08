@@ -34,7 +34,7 @@ jobs:
 
       - name: Install Playwright
         run: |
-          Import-Module ./psplaywright.psd1
+          sudo Import-Module ./psplaywright.psd1
           sudo Install-PwPlaywright
 
       - name: Save screenshots
