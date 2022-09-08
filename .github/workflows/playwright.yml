@@ -15,7 +15,7 @@ jobs:
           Import-Module ./psplaywright.psd1
           Install-PwPlaywright
 
-      - name: Install dependencies
+      - name: Save screenshots
         run: |
           Import-Module ./psplaywright.psd1
           New-Item -ItemType Directory -Path $HOME\screenshots
