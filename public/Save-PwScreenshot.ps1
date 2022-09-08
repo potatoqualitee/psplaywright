@@ -70,7 +70,7 @@ function Save-PwScreenshot {
             $text = $text -replace $invalidchars, "_"
             $items += @{
                 url             = $url.AbsoluteUri
-                directory       = $Path
+                directory       = Resolve-Path -Path $Path
                 fullPage        = $FullScreen
                 filename        = $url.Host + $text + ".png"
                 width           = $Width
