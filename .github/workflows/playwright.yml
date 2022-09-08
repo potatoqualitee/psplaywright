@@ -17,6 +17,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          Import-Module ./psplaywright.psd1
           New-Item -ItemType Directory -Path $HOME\screenshots
           Save-PwScreenShot -Uri https://www.google.com, msnbc.com -Path $HOME
 
