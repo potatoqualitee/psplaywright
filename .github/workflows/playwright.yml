@@ -1,0 +1,14 @@
+name: Playwright Tests
+on:
+  push:
+defaults:
+  run:
+    shell: pwsh
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: Import-Module ./psplaywright.psd1; Install-PwPlaywright
