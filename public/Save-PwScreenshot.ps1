@@ -86,10 +86,16 @@ function Save-PwScreenshot {
         $screenshots = Join-Path -Path $script:root -ChildPath js
         $screenshots = Join-Path -Path $screenshots -ChildPath screenshots.js
 
-        $results = node "$screenshots" $json
+        if (-not $IsLinux -and -not $isMacOS) {
+            $results = Invoke-NodeNoWorkingDirectory
+        } else {
+            $results = node "$screenshots" $json
+        }
+
+
 
         if ($results.ExitCode -contains 1) {
-            Write-Warning $results.stderr
+            throw $results.stderr
             return
         }
 
