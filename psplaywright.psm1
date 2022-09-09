@@ -41,8 +41,20 @@ foreach ($function in (Get-ChildItem "$script:root\public" -Filter "*.ps1" -Recu
     . Import-ModuleFile -Path $function.FullName
 }
 
-$script:nodepath = Get-ChildItem -Path $script:root -Filter node.exe -Recurse
-$nodebin = Join-Path -Path $script:root -ChildPath bin
-$env:NODE_PATH = Join-Path -Path $nodebin -ChildPath .playwright
-Set-Alias -Name node -Value Invoke-Node
-Set-Alias -Name playwright -Value Invoke-Playwright
+if ($isLinux -or $isMac) {
+    $script:nodepath = (whereis node) -split " " | Select-Object -First 1 -Skip 1
+    $script:npxpath = (whereis npx) -split " " | Select-Object -First 1 -Skip 1
+    $script:npmpath = (whereis npm) -split " " | Select-Object -First 1 -Skip 1
+    $script:nodebin = Join-Path -Path $script:root -ChildPath bin
+    $script:modulebin = (npm config get prefix | Out-String).Trim()
+    $Env:NODE_PATH = $script:modulebin + ":" + (Join-Path -Path $script:nodebin -ChildPath .playwright) + ":" + "/usr/share/nodejs"
+    if (-not $script:nodepath) {
+        throw "Node.js is not installed. Please install Node.js and try again."
+    }
+} else {
+    $script:nodepath = Get-ChildItem -Path $script:root -Filter node.exe -Recurse
+    $nodebin = Join-Path -Path $script:root -ChildPath bin
+    $env:NODE_PATH = Join-Path -Path $nodebin -ChildPath .playwright
+    Set-Alias -Name node -Value Invoke-Node
+    Set-Alias -Name playwright -Value Invoke-Playwright
+}
