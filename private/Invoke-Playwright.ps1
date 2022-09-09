@@ -4,5 +4,10 @@ function Invoke-Playwright {
         new             Method     Microsoft.Playwright.Program new()
     #>
     Write-Verbose "Running playwright $args"
-    [Microsoft.Playwright.Program]::Main("$args")
+
+    if ($isLinux -or $IsMacOs) {
+        npx playwright $args
+    } else {
+        [Microsoft.Playwright.Program]::Main("$args")
+    }
 }

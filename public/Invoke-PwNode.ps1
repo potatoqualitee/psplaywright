@@ -10,7 +10,7 @@ function Invoke-PwNode {
         The path to the script.
 
     .PARAMETER ArgumentList
-        The arguments to pass to the script.
+        The arguments to pass to the script. Consider using compressed JSON for this parameter.
 
     .EXAMPLE
         Invoke-PwNode -FilePath C:\temp\test.js
