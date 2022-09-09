@@ -26,7 +26,7 @@ function Invoke-PwNode {
     param(
         [Parameter(Mandatory)]
         [string[]]$FilePath,
-        [switch[]]$ArgumentList
+        [string[]]$ArgumentList
     )
     process {
         $arglist = $ArgumentList -join " "
