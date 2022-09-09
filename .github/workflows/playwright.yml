@@ -37,7 +37,7 @@ jobs:
         run: |
           Import-Module ./psplaywright.psd1
           Install-PwPlaywright
-          Get-ChildItem -Recurse | Select-Object FullName
+          ls -la --recursive
 
       - name: Save screenshots
         run: |
