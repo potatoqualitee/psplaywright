@@ -14,7 +14,7 @@ jobs:
         run: |
           Import-Module ./psplaywright.psd1
           Install-PwPlaywright
-          Get-ChildItem -Recurse | Select-Object Name
+          Get-ChildItem -Recurse | Select-Object FullName
 
       - name: Save screenshots
         run: |
@@ -37,7 +37,7 @@ jobs:
         run: |
           Import-Module ./psplaywright.psd1
           Install-PwPlaywright
-          Get-ChildItem -Recurse | Select-Object Name
+          Get-ChildItem -Recurse | Select-Object FullName
 
       - name: Save screenshots
         run: |
