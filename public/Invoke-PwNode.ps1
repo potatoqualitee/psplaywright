@@ -26,7 +26,6 @@ function Invoke-PwNode {
     param(
         [Parameter(Mandatory)]
         [string[]]$FilePath,
-        [string]$Path,
         [switch[]]$ArgumentList
     )
     process {

@@ -107,7 +107,7 @@ function Save-PwScreenshot {
         $screenshots = Join-Path -Path $script:root -ChildPath js
         $screenshots = Join-Path -Path $screenshots -ChildPath screenshots.js
 
-        Invoke-PwNode -Script $screenshots -Arguments $json
+        Invoke-PwNode -FilePath $screenshots -Arguments $json
 
         foreach ($item in $items) {
             Get-ChildItem -Path (Join-Path -Path $item.directory -ChildPath $item.filename)
