@@ -5,10 +5,48 @@ defaults:
   run:
     shell: pwsh
 jobs:
-  test:
+  test-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: Import-Module ./psplaywright.psd1; Install-PwPlaywright
+        run: |
+          Import-Module ./psplaywright.psd1
+          Install-PwPlaywright
+          Get-ChildItem -Recurse | Select-Object FullName
+
+      - name: Save screenshots
+        run: |
+          Import-Module ./psplaywright.psd1
+          New-Item -ItemType Directory -Path $(Join-Path -Path $HOME -ChildPath screenshots)
+          Save-PwScreenShot -Uri https://www.google.com, msnbc.com, https://www.msnbc.com/morning-joe/watch/queen-elizabeth-s-doctors-concerned-for-her-health-147978821891 -Path $(Join-Path -Path $HOME -ChildPath screenshots)
+
+      - name: 🪠 Upload screenshots to artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots
+          path: C:\Users\runneradmin\screenshots
+
+  test-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Playwright
+        run: |
+          Import-Module ./psplaywright.psd1
+          Install-PwPlaywright
+          ls -la --recursive
+
+      - name: Save screenshots
+        run: |
+          Import-Module ./psplaywright.psd1
+          New-Item -ItemType Directory -Path $(Join-Path -Path $HOME -ChildPath screenshots)
+          Save-PwScreenShot -Uri https://www.google.com, msnbc.com, https://www.msnbc.com/morning-joe/watch/queen-elizabeth-s-doctors-concerned-for-her-health-147978821891 -Path $(Join-Path -Path $HOME -ChildPath screenshots)
+
+      - name: 🪠 Upload screenshots to artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots
+          path: /home/runner/screenshots
