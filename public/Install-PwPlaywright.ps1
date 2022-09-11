@@ -4,7 +4,8 @@ function Install-PwPlaywright {
 
     if ($isLinux -or $isMac) {
         Write-Verbose "installing on linux or mac $script:npxpath"
-        #$exec1 = Invoke-Program -FilePath $script:npmpath -ArgumentList "install" -ErrorAction Stop -Verbose -WorkingDirectory $script:root
+        Write-Verbose "$script:npmpath --prefix $script:modulebin -y install"
+        $exec = Invoke-Program -FilePath $script:npmpath -ArgumentList "--prefix $script:modulebin -y install" -ErrorAction Stop
         $exec = Invoke-Program -FilePath $script:npxpath -ArgumentList "--prefix $script:modulebin -y playwright install" -ErrorAction Stop
 
         if ($exec.ExitCode -ne 0) {

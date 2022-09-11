@@ -2,34 +2,55 @@ function Save-PwScreenshot {
     <#
     .SYNOPSIS
         Saves a screenshot of the current desktop to a file.
+
     .DESCRIPTION
         Saves a screenshot of the current desktop to a file.
+
     .PARAMETER Uri
         The URI of the screenshot to save.
+
     .PARAMETER Path
         The path to save the screenshot to.
+
     .PARAMETER FullPage
         If specified, the screenshot will be the full page, not just the visible portion.
+
     .PARAMETER Width
         The width of the screenshot to take.
+
     .PARAMETER Height
         The height of the screenshot to take.
+
     .PARAMETER Headful
         If specified, the screenshot will be taken in headful mode.
+
     .PARAMETER Clip
         If specified, the screenshot will be clipped to the specified region.
+
     .PARAMETER WaitForSelector
         If specified, the screenshot will be taken after the specified selector is visible.
+
     .PARAMETER Browser
         The browser to use for the screenshot.
+
     .PARAMETER WaitForTimeout
         The timeout to use for the screenshot.
+
     .PARAMETER ClickSelector
         If specified, the specified selector will be clicked before the screenshot is taken.
+
      .PARAMETER ChromiumSandbox
         If specified, the Chromium sandbox will be enabled.
 
-    Save-PwScreenshot -Uri https://www.google.com, bbc.com -Path C:\temp
+    .EXAMPLE
+        Save-PwScreenshot -Uri https://www.google.com -Path C:\temp
+
+        Takes a screenshot of the Google homepage and saves it to C:\Temp\www.google.com.png.
+
+    .EXAMPLE
+        Save-PwScreenshot -Uri https://www.google.com, bbc.com -Path C:\temp
+
+        Takes a screenshot of the google and the bbc and saves them to C:\Temp\
     #>
     [CmdletBinding()]
     param(
@@ -86,17 +107,7 @@ function Save-PwScreenshot {
         $screenshots = Join-Path -Path $script:root -ChildPath js
         $screenshots = Join-Path -Path $screenshots -ChildPath screenshots.js
 
-        if (-not $IsLinux -and -not $isMacOS) {
-            $results = Invoke-NodeNoWorkingDirectory "$screenshots" $json
-        } else {
-            $results = node "$screenshots" $json
-        }
-
-        if ($results.ExitCode -contains 1) {
-            throw $results.stderr
-            return
-        }
-
+        Invoke-PwNode -FilePath $screenshots -ArgumentList $json
 
         foreach ($item in $items) {
             Get-ChildItem -Path (Join-Path -Path $item.directory -ChildPath $item.filename)

@@ -1,40 +1,30 @@
 function Start-PwPlaywright {
+    <#
+    .SYNOPSIS
+        Executes playwright commands
+
+    .DESCRIPTION
+        Executes playwright commands
+
+    .PARAMETER ArgumentList
+        The arguments to pass to the script.
+
+    .EXAMPLE
+        Start-PwPlaywright -ArgumentList install
+
+        Installs playwright
+
+    .EXAMPLE
+        Start-PwPlaywright -ArgumentList install
+
+
+    #>
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory = $false)]
-        [string]$TypeDefinition
+        [string[]]$ArgumentList
     )
-    if (-not $TypeDefinition) {
-        $code = '
-            await using var playwright = await Playwright.CreateAsync();
-            await using var browser = await playwright.Chromium.LaunchAsync();
-            var page = await browser.NewPageAsync();
-            await page.GotoAsync("https://playwright.dev/dotnet");
-            await page.ScreenshotAsync(new PageScreenshotOptions { Path = "screenshot.png" });
-            '
-        $random = Get-Random
-        $TypeDefinition = @"
-using Microsoft.Playwright;
-using System.Threading.Tasks;
-
-public class PlaywrightExample$random
-{
-   public static void Main()
-   {
-       WaitTwoSeconds().Wait();
-   }
-
-   private static async Task WaitTwoSeconds()
-   {
-        var playwright = await Playwright.CreateAsync();
-        var browser = await playwright.Chromium.LaunchAsync();
-        var page = await browser.NewPageAsync();
-        await page.GotoAsync("https://playwright.dev/dotnet");
-        await page.ScreenshotAsync(new PageScreenshotOptions { Path = "screenshot.png" });
-   }
-}
-"@
+    process {
+        $arglist = $ArgumentList -join " "
+        Invoke-Playwright $file $arglist
     }
-    Add-Type -TypeDefinition $TypeDefinition -ReferencedAssemblies Microsoft.Playwright, "$script:root\bin\Microsoft.Bcl.AsyncInterfaces.dll", "$script:root\bin\netstandard.dll" -ErrorAction Stop
-    #Invoke-Expression -Command "[PSPlaywright$random]::Main()"
 }

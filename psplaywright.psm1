@@ -55,6 +55,13 @@ if ($isLinux -or $isMac) {
     $script:nodepath = Get-ChildItem -Path $script:root -Filter node.exe -Recurse
     $nodebin = Join-Path -Path $script:root -ChildPath bin
     $env:NODE_PATH = Join-Path -Path $nodebin -ChildPath .playwright
-    Set-Alias -Name node -Value Invoke-Node
-    Set-Alias -Name playwright -Value Invoke-Playwright
+
+    if (-not (Get-Command node -ErrorAction Ignore)) {
+        Set-Alias -Name node -Value Invoke-Node
+        Export-ModuleMember -Alias node
+    }
+    if (-not (Get-Command playwright -ErrorAction Ignore)) {
+        Set-Alias -Name playwright -Value Invoke-Playwright
+        Export-ModuleMember -Alias playwright
+    }
 }
