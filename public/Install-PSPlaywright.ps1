@@ -1,9 +1,21 @@
 function Install-PSPPlaywright {
+    <#
+    .SYNOPSIS
+        Installs Microsoft Playwright
+
+    .DESCRIPTION
+        Installs Microsoft Playwright
+
+    .Example
+        Install-PSPPlaywright
+    
+        Installs Microsoft Playwright
+#>
     [cmdletbinding()]
     param()
 
     if ($isLinux -or $isMac) {
-        Write-Verbose "installing on linux or mac $script:npxpath"
+        Write-Verbose "Installing on linux or mac to $script:modulebin"
         Write-Verbose "$script:npmpath --prefix $script:modulebin -y install"
         $exec = Invoke-Program -FilePath $script:npmpath -ArgumentList "--prefix $script:modulebin -y install" -ErrorAction Stop
         $exec = Invoke-Program -FilePath $script:npxpath -ArgumentList "--prefix $script:modulebin -y playwright install" -ErrorAction Stop
@@ -15,7 +27,7 @@ function Install-PSPPlaywright {
             Write-Output "Playwright installed successfully"
         }
     } else {
-        Write-Verbose "installing on windows"
+        Write-Verbose "Installing on Windows"
         $exec = playwright install
         if ($exec -ne 0) {
             throw "Failed to install Playwright"
@@ -23,5 +35,4 @@ function Install-PSPPlaywright {
             Write-Output "Playwright installed successfully"
         }
     }
-
 }
